@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Passion_of_code.Controllers.DaysInfo
+
+<div class="text-center">
+    <h1 class="display-4">@(Model.yr)</h1>
+</div>
+
+<div class="text-left">
+    <table>
+        @foreach (var n in Model.days)
+        {
+            <tr>
+                <p>
+                    <a class="text-dark" asp-area=""
+                       asp-controller="Event" asp-action="Day" asp-route-day=@(n.day)
+                       asp-route-year=@(Model.yr)> @(n.day)</a>
+                    @if (n.tally == 1)
+                    {
+                        @("*")
+                    }
+                    @if (n.tally == 2)
+                    {
+                        @("**")
+                    }
+                </p>
+            </tr>
+        }
+        @if (Model.total > 0)
+        {
+            <tr><p>Total Tasks solved : @(Model.total) </p></tr>
+        }
+    </table>
+
+
+    @if (Context.Session.GetString("uname") != null)
+    {
+        <a asp-area="" asp-controller="Event" asp-action="StatsYear" asp-route-year=@(Model.yr)> Stats for Year </a>
+    }
+</div>

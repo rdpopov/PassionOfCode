@@ -1,0 +1,123 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Passion_of_code.Controllers.DaysInfo
+@{
+    ViewData["Title"] = "Stats For Year";
+}
+
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>                    
+<div class="text-center">
+</div>
+
+<div class="text-left">
+    <table>
+        <th>Language</th>
+        <th>Percentage</th>
+            @foreach (var n in ViewBag.Used_Lang)
+            {
+            <tr>
+                <td>
+                        @if (n.name == "")
+                        {
+                            @("No Survey")
+
+                        }
+                        else
+                        {
+                            @(n.name)
+                        }
+                </td>
+                <td>
+                        @(((double)n.count / ViewBag.count) * 100)%
+                </td>
+            </tr>
+            }
+
+        <tr><td></td><td></td> </tr>
+        <th>Approach</th>
+        <th>Percentage</th>
+            @foreach (var n in ViewBag.Approach)
+            {
+            <tr>
+                <td>
+                        @if (n.name == "")
+                        {
+                            @("No Survey")
+
+                        }
+                        else
+                        {
+                            @(n.name)
+                        }
+                </td>
+                <td>
+                        @(((double)n.count / ViewBag.count) * 100)%
+                </td>
+            </tr>
+            }
+        <tr><td></td><td></td> </tr>
+        <th>Paradigm</th>
+        <th>Percentage</th>
+            @foreach (var n in ViewBag.Paradigm)
+            {
+            <tr>
+                <td>
+                        @if (n.name == "")
+                        {
+                            @("No Survey")
+
+                        }
+                        else
+                        {
+                            @(n.name)
+                        }
+                </td>
+                <td>
+                        @(((double)n.count / ViewBag.count) * 100)%
+                </td>
+            </tr>
+            }
+        <tr><td></td><td></td> </tr>
+        <th>Difficulty</th>
+        <th>Percentage</th>
+            @foreach (var n in ViewBag.Difficulty)
+            {
+            <tr>
+                <td>
+                        @{
+                            switch (n.name)
+                            {
+                                case 1:
+                                    @("Very Easy")
+                                    break;
+                                case 2:
+                                    @("Easy")
+                                    break;
+                                case 3:
+                                    @("Medium")
+                                    break;
+                                case 4:
+                                    @("Hard")
+                                    break;
+                                case 5:
+                                    @("Very Hard")
+                                    break;
+                                default:
+                                    @("No Survey")
+                                    break;
+                            }
+                        }
+                </td>
+                <td>
+                        @(((double)n.count / ViewBag.count) * 100)%
+                </td>
+            </tr>
+            }
+    </table>
+</div>

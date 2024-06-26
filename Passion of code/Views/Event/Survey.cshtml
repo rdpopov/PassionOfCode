@@ -1,0 +1,59 @@
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model dynamic
+<!-- Passion_of_code.Controllers.ChallangeInfo -->
+
+<div class="text-center">
+    <h1 class="display-4">@(Model.yr) day @(Model.day)</h1>
+</div>
+
+@if (Context.Session.GetString("uname") != null)
+{
+    <p>@("Return to ") <a asp-area="" asp-controller="Event" asp-action="Year" asp-route-year=@(Model.yr)> @(Model.yr) </a> </p>
+    <!-- Part 1-->
+    <div class="text-left">
+        <p> @(Model.part1_problem)</p>
+        @if (Model.show_input)
+        {
+            <div>
+                <label class="answer">Answer: @(Model.part1_solution) </label>
+            </div>
+        }
+    </div>
+
+    <!-- Part 2-->
+    <div class="text-left">
+        <p>@(Model.part2_problem)</p>
+        <p>
+            It hasn't changed, but you can still <a class="text-dark" asp-area="" asp-controller="Event" asp-action="InputForDay" asp-route-year=@(Model.yr) asp-route-day=@(Model.day)> get your input.</a>
+        </p>
+        <div>
+            <label class="answer">Answer: @(Model.part2_solution) </label>
+        </div>
+    </div>
+
+    <!-- Part 3 -->
+
+    <div class="text-left">
+        <p> Please fill this survey about the task. </p>
+        @if (ViewBag.usr_msg != "" && ViewBag.usr_msg != null )
+        {
+            <p style="color:darkgreen"> @(ViewBag.usr_msg) </p>
+        }
+
+        <form asp-controller="Event" asp-action="Survey" method="post"
+              asp-route-year=@(Model.yr) asp-route-day=@(Model.day)>
+            <table>
+                <tr><td>@Html.DropDownList("Language", ViewBag.lang, "Select Language", new { @class = "form-control" })</td></tr>
+                <tr><td>@Html.DropDownList("Approach", ViewBag.appr, "Select Approach", new { @class = "form-control" })</td></tr>
+                <tr><td>@Html.DropDownList("Paradigm", ViewBag.para, "Select Paradigm", new { @class = "form-control" })</td></tr>
+                <tr><td>@Html.DropDownList("Difficulty", ViewBag.diff, "Select Difficulty", new { @class = "form-control" })</td></tr>
+                <td><button type="submit">Submit</button></td>
+            </table>
+        </form>
+
+        <a asp-area="" asp-controller="Event" asp-action="StatsDay" asp-route-year=@(Model.yr) asp-route-day=@(Model.yr)> Stats for this task </a>
+    </div>
+}

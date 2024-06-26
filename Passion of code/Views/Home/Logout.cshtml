@@ -1,0 +1,14 @@
+﻿@model Passion_of_code.Controllers.Message
+@{
+    ViewData["Title"] = "Logout";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Logout</h1>
+    @if (Model.msg.Length > 0)
+    {
+        <p style=@(Model.color)>@(Model.msg)</p>
+    }
+</div>
+
+

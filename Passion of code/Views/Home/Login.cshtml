@@ -1,0 +1,55 @@
+﻿@model Passion_of_code.Controllers.Message
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Login</h1>
+</div>
+
+<div>
+    <form asp-controller="Home" asp-action="Login" method="post">
+        <table class="center">
+            @if (Model.msg.Length > 0)
+            {
+                <p style=@(Model.color)>@(Model.msg)</p>
+            }
+            <tr>
+                <td>
+                    <label for="uname">Username: </label>
+                </td>
+                <td>
+                    <input type="text" name="uname">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="pass">Password: </label>
+                </td>
+                <td>
+                    <input type="password" name="pass" />
+                </td>
+            </tr>
+            <tr>
+                <td> </td>
+                <td>
+                    <button type="submit">Login</button>
+                    Or
+                    <a class="text-dark"
+                       asp-area=""
+                       asp-controller="Home"
+                       asp-action="Register"> Register </a>
+                </td>
+            </tr>
+            <tr>
+                <td> </td>
+                <td>
+                    <a class="text-dark"
+                       asp-area=""
+                       asp-controller="Home"
+                       asp-action="ResetPass"> Forgot Password? </a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

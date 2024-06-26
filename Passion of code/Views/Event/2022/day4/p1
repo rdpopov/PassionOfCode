@@ -1,0 +1,26 @@
+You have a binary sequence (ec: 101001). A binary sequence doubles in this way:
+<br>
+(original) + 0 (not of the original in reverse) 
+<table>
+    <tr><td>1 becomes 100.</td></tr>
+    <tr><td>0 becomes 001.</td></tr>
+    <tr><td>11111 becomes 11111000000.</td></tr>
+    <tr><td>111100001010 becomes 1111000010100101011110000.</td></tr>
+</table>
+
+<br>
+Then we have to reduce the sum if the lenght is even:<br>
+Separate the pairs of the sequence and each one reduces with xor.
+<br>
+<table>
+    <tr><td>11, 00 -> 1 </td></tr>
+    <tr><td>01, 10 -> 0 </td></tr>
+</table>
+ex: 110110 -> 100 <br>
+<br>
+We have to keep reducing until the sequnce lenght is odd <br>
+<br>
+Your input is the initial sequence<br>
+<br>
+What is the count of 1s in the sequence after 5 doublings and after being
+reduced? <br>

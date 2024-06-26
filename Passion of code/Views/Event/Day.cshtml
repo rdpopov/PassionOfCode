@@ -1,0 +1,100 @@
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model dynamic
+<!-- Passion_of_code.Controllers.ChallangeInfo -->
+
+<div class="text-center">
+    <h1 class="display-4">@(Model.yr) day @(Model.day)</h1>
+</div>
+
+<!-- Part 1-->
+<div class="text-left">
+
+    <div> @Html.Raw(Model.part1_problem)</div>
+    @if (Model.show_input)
+    {
+        <p>
+            <a class="text-dark"
+               asp-area=""
+               asp-controller="Event"
+               asp-action="InputForDay"
+               asp-route-year=@(Model.yr)
+               asp-route-day=@(Model.day)> Get your input.</a>
+        </p>
+        @if (Model.part1_solved == false)
+        {
+            <form asp-controller="Event" asp-action="Day" method="post"
+                  asp-route-year=@(Model.yr) asp-route-day=@(Model.day) asp-route-part=1>
+                <table>
+                    <td>
+                        <div>
+                            <label for="ANSWER">Answer: </label>
+                            <input type="text" name="ANSWER">
+                        </div>
+                    </td>
+                    <td><button type="submit">Submit</button></td>
+                </table>
+            </form>
+        }
+        else
+        {
+            <div>
+                <label class="answer">Answer: @(Model.part1_solution) </label>
+            </div>
+        }
+    }
+    else
+    {
+        <p>To recieve input <a asp-area="" asp-controller="Home" asp-action="Login">Login</a></p>
+    }
+</div>
+
+<!-- Part 2-->
+<div class="text-left">
+    @if (Model.part1_solved == true)
+    {
+        <div> @Html.Raw(Model.part2_problem)</div>
+        <p>
+            It hasnt changed, but you can still <a class="text-dark" asp-area="" asp-controller="Event" asp-action="InputForDay" asp-route-year=@(Model.yr) asp-route-day=@(Model.day)> get your input.</a>
+        </p>
+        @if (Model.part2_solved == false)
+        {
+            <form asp-controller="Event" asp-action="Day" method="post"
+                  asp-route-year=@(Model.yr) asp-route-day=@(Model.day) asp-route-part=2>
+                <table>
+                    <td>
+                        <div>
+                            <label for="ANSWER">Answer: </label>
+                            <input type="text" name="ANSWER">
+                        </div>
+                    </td>
+                    <td><button type="submit">Submit</button></td>
+                </table>
+            </form>
+        }
+        else
+        {
+            <div>
+                <label class="answer">Answer: @(Model.part2_solution) </label>
+            </div>
+            <p>
+                You have already solved the whole task, go back to <a class="text-dark" asp-area="" asp-controller="Event" asp-action="Year" asp-route-year=@(Model.yr)>@(Model.yr)</a>?
+            </p>
+        }
+    }
+</div>
+
+<!-- Part 3 -->
+
+<div class="text-left">
+    @if (Model.part1_solved == true && Model.part2_solved == true)
+    {
+        <div>
+            Do you want to do a little <a asp-area="" asp-controller="Event" asp-action="Survey"
+                                          asp-route-year=@(Model.yr) asp-route-day=@(Model.day)> survey</a> about the problem ?
+        </div>
+    }
+</div>
+
