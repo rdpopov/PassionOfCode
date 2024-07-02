@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Passion_of_code.Models;
 using Passion_of_code.Utils.Content;
-
+using Passion_of_code.Utils.ChartHelper;
 
 using System;
 using System.IO;
@@ -17,11 +17,17 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Mysqlx.Prepare;
 using System.Data;
 
+
 namespace Passion_of_code.Controllers
 {
 
     public class Tally {
         public int day { get; set; }
+        public int tally { get; set; } = 0;
+    }
+    public class myTup
+    {
+        public string name { get; set; }
         public int tally { get; set; } = 0;
     }
     public class DaysInfo {
@@ -125,6 +131,7 @@ namespace Passion_of_code.Controllers
                     ViewBag.usr_msg = "Survey response saved";
                 }
                 return Survey(year, day);
+
             }
             return Survey(year, day);
         }
@@ -374,25 +381,30 @@ namespace Passion_of_code.Controllers
                 {
                     ViewBag.Used_lang = db_context.Tasks
                                         .GroupBy(p => p.Language)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = g.Key, tally = g.Count() })
                                         .Take(10)
                                         .ToList();
-                    ViewBag.count = db_context.Tasks.Count();
+
+                    ViewBag.Used_lang_graph = ChartHelper.getGraphUrl(ViewBag.Used_lang, "Top Used Language", "bar");
 
                     ViewBag.Approach = db_context.Tasks
                                         .GroupBy(p => p.Approach)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = g.Key, tally = g.Count() })
                                         .Take(10).ToList();
+                    ViewBag.Approach_graph = ChartHelper.getGraphUrl(ViewBag.Approach, "Approach", "pie");
 
                     ViewBag.Paradigm = db_context.Tasks
                                         .GroupBy(p => p.Paradigm)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = g.Key, tally = g.Count() })
                                         .Take(10).ToList();
+                    ViewBag.Paradigm_graph = ChartHelper.getGraphUrl(ViewBag.Paradigm, "Paradigm", "pie");
 
                     ViewBag.Difficulty = db_context.Tasks
                                         .GroupBy(p => p.Difficulty)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = ChartHelper.getDiff(g.Key.Value), tally = g.Count() })
                                         .ToList();
+
+                    ViewBag.Difficulty_graph = ChartHelper.getGraphUrl(ViewBag.Difficulty , "Paradigm", "pie");
 
                 }
             }
@@ -409,9 +421,11 @@ namespace Passion_of_code.Controllers
                     ViewBag.Used_lang = db_context.Tasks
                                         .Where(t => t.Day == day && t.Year == year)
                                         .GroupBy(p => p.Language)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = g.Key, tally = g.Count() })
                                         .Take(10)
                                         .ToList();
+                    ViewBag.Used_lang_graph = ChartHelper.getGraphUrl(ViewBag.Used_lang, "Top Used Language", "bar");
+
                     ViewBag.count = db_context.Tasks
                                         .Where(t => t.Day == day && t.Year == year)
                                         .Count();
@@ -419,20 +433,23 @@ namespace Passion_of_code.Controllers
                     ViewBag.Approach = db_context.Tasks
                                         .Where(t => t.Day == day && t.Year == year)
                                         .GroupBy(p => p.Approach)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = g.Key, tally = g.Count() })
                                         .Take(10).ToList();
 
+                    ViewBag.Approach_graph = ChartHelper.getGraphUrl(ViewBag.Approach, "Approach", "pie");
                     ViewBag.Paradigm = db_context.Tasks
                                         .Where(t => t.Day == day && t.Year == year)
                                         .GroupBy(p => p.Paradigm)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = g.Key, tally = g.Count() })
                                         .Take(10).ToList();
+                    ViewBag.Paradigm_graph = ChartHelper.getGraphUrl(ViewBag.Paradigm, "Paradigm", "pie");
 
                     ViewBag.Difficulty = db_context.Tasks
                                         .Where(t => t.Day == day && t.Year == year)
                                         .GroupBy(p => p.Difficulty)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = ChartHelper.getDiff(g.Key.Value), tally = g.Count() })
                                         .ToList();
+                    ViewBag.Difficulty_graph = ChartHelper.getGraphUrl(ViewBag.Difficulty , "Paradigm", "pie");
 
                 }
             }
@@ -450,9 +467,11 @@ namespace Passion_of_code.Controllers
                     ViewBag.Used_lang = db_context.Tasks
                                         .Where(t => t.Year == year)
                                         .GroupBy(p => p.Language)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = g.Key, tally = g.Count() })
                                         .Take(10)
                                         .ToList();
+
+                    ViewBag.Used_lang_graph = ChartHelper.getGraphUrl(ViewBag.Used_lang, "Top Used Language", "bar");
                     ViewBag.count = db_context.Tasks
                                         .Where(t =>  t.Year == year)
                                         .Count();
@@ -460,20 +479,25 @@ namespace Passion_of_code.Controllers
                     ViewBag.Approach = db_context.Tasks
                                         .Where(t => t.Year == year)
                                         .GroupBy(p => p.Approach)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = g.Key, tally = g.Count() })
                                         .Take(10).ToList();
+                    ViewBag.Approach_graph = ChartHelper.getGraphUrl(ViewBag.Approach, "Approach", "pie");
+
 
                     ViewBag.Paradigm = db_context.Tasks
                                         .Where(t => t.Year == year)
                                         .GroupBy(p => p.Paradigm)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = g.Key, tally = g.Count() })
                                         .Take(10).ToList();
+                    ViewBag.Paradigm_graph = ChartHelper.getGraphUrl(ViewBag.Paradigm, "Paradigm", "pie");
 
                     ViewBag.Difficulty = db_context.Tasks
                                         .Where(t => t.Year == year)
                                         .GroupBy(p => p.Difficulty)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = ChartHelper.getDiff(g.Key.Value), tally = g.Count() })
                                         .ToList();
+
+                    ViewBag.Difficulty_graph = ChartHelper.getGraphUrl(ViewBag.Difficulty , "Paradigm", "pie");
 
                 }
             }
@@ -491,7 +515,7 @@ namespace Passion_of_code.Controllers
                     ViewBag.Used_lang = db_context.Tasks
                                         .Where(t => t.Username == uname)
                                         .GroupBy(p => p.Language)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = g.Key, tally = g.Count() })
                                         .Take(10)
                                         .ToList();
                     ViewBag.count = db_context.Tasks
@@ -501,21 +525,27 @@ namespace Passion_of_code.Controllers
                     ViewBag.Approach = db_context.Tasks
                                         .Where(t => t.Username == uname)
                                         .GroupBy(p => p.Approach)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = g.Key, tally = g.Count() })
                                         .Take(10).ToList();
+
+
 
                     ViewBag.Paradigm = db_context.Tasks
                                         .Where(t => t.Username == uname)
                                         .GroupBy(p => p.Paradigm)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = g.Key, tally = g.Count() })
                                         .Take(10).ToList();
 
                     ViewBag.Difficulty = db_context.Tasks
                                         .Where(t => t.Username == uname)
                                         .GroupBy(p => p.Difficulty)
-                                        .Select(g => new { name = g.Key, count = g.Count() })
+                                        .Select(g => new myTup { name = ChartHelper.getDiff(g.Key.Value), tally = g.Count() })
                                         .ToList();
 
+                    ViewBag.Used_lang_graph = ChartHelper.getGraphUrl(ViewBag.Used_lang, "Top Used Language", "bar");
+                    ViewBag.Approach_graph = ChartHelper.getGraphUrl(ViewBag.Approach, "Approach", "pie");
+                    ViewBag.Paradigm_graph = ChartHelper.getGraphUrl(ViewBag.Paradigm, "Paradigm", "pie");
+                    ViewBag.Difficulty_graph = ChartHelper.getGraphUrl(ViewBag.Difficulty , "Paradigm", "pie");
                 }
             }
             return View();

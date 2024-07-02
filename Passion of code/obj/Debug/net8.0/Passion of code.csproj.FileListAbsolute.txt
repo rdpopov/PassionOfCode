@@ -273,3 +273,10 @@ C:\Users\asdf\Desktop\DEV\test_w_app\Passion of code\Passion of code\bin\Debug\n
 C:\Users\asdf\Desktop\DEV\test_w_app\Passion of code\Passion of code\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\Users\asdf\Desktop\DEV\test_w_app\Passion of code\Passion of code\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\Users\asdf\Desktop\DEV\test_w_app\Passion of code\Passion of code\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\asdf\Desktop\DEV\test_w_app\Passion of code\Passion of code\bin\Debug\net8.0\System.Web.Razor.dll
+C:\Users\asdf\Desktop\DEV\test_w_app\Passion of code\Passion of code\bin\Debug\net8.0\System.Web.Helpers.dll
+C:\Users\asdf\Desktop\DEV\test_w_app\Passion of code\Passion of code\bin\Debug\net8.0\System.Web.WebPages.Deployment.dll
+C:\Users\asdf\Desktop\DEV\test_w_app\Passion of code\Passion of code\bin\Debug\net8.0\System.Web.WebPages.Razor.dll
+C:\Users\asdf\Desktop\DEV\test_w_app\Passion of code\Passion of code\bin\Debug\net8.0\System.Web.WebPages.dll
+C:\Users\asdf\Desktop\DEV\test_w_app\Passion of code\Passion of code\bin\Debug\net8.0\Microsoft.Web.Infrastructure.dll
+C:\Users\asdf\Desktop\DEV\test_w_app\Passion of code\Passion of code\bin\Debug\net8.0\QuickChart.dll

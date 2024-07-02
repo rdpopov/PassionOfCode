@@ -50,6 +50,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNet.WebPages": {
+              "target": "Package",
+              "version": "[3.3.0, )"
+            },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
               "version": "[5.2.1, )"
@@ -81,6 +85,10 @@
             "MySql.Data": {
               "target": "Package",
               "version": "[8.4.0, )"
+            },
+            "QuickChart": {
+              "target": "Package",
+              "version": "[2.3.0, )"
             }
           },
           "imports": [
